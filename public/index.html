@@ -1,5 +1,9 @@
 <html>
 <h1>web cache tests</h1>
+<style>
+html { font-family: Arial }
+.request > div { margin-bottom: 5px; }
+</style>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <ul>
   <li><a href="/public/store/store.html">store</a></li>
@@ -10,11 +14,15 @@
 <div >
   <input type="radio" name="size" value="1k">1k
   <input type="radio" name="size" value="10k">10k
+  <input type="radio" name="size" value="100k">100k
+  <input type="radio" name="size" value="1M">1M
 </div>
 <div> fileName : <input type="text" name="fileName" value="file0001.bin"></div>
 <div> maxAge : <input type="text" name="maxAge" value=""></div>
 <div> etag : <input type="text" name="etag" value=""></div>
 <div> cacheControl : <input type="text" name="cacheControl" value=""></div>
+<div> id_producto : <input type="text" name="id_producto" value=""></div>
+<div> vary : <input type="text" name="vary" value=""></div>
   
   
 <a id="url" href="">http://labtl0001.lab.mercadona.es:3000/static/1k/file001.bin</a>
@@ -27,6 +35,7 @@ $(function(){
   var add = function(name){
    var value = $('[name="'+name+'"]').val();
    if (value) return name+'='+value+'&';
+   return "";
   }
   var url = function(){
     var str = base 
@@ -37,7 +46,7 @@ $(function(){
    	+ add('maxAge');
 	return str;
   };
-  $(document).on('change','input', function(evt){
+  $(document).on('change, keyup','input', function(evt){
     var x=url();
     $('#url').attr('href',x).text(x);
     
