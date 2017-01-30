@@ -1,0 +1,47 @@
+<html>
+<h1>web cache tests</h1>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<ul>
+  <li><a href="/public/store/store.html">store</a></li>
+</ul>
+
+<div class="request">
+  <h2>Request builder</h2>
+<div >
+  <input type="radio" name="size" value="1k">1k
+  <input type="radio" name="size" value="10k">10k
+</div>
+<div> fileName : <input type="text" name="fileName" value="file0001.bin"></div>
+<div> maxAge : <input type="text" name="maxAge" value=""></div>
+<div> etag : <input type="text" name="etag" value=""></div>
+<div> cacheControl : <input type="text" name="cacheControl" value=""></div>
+  
+  
+<a id="url" href="">http://labtl0001.lab.mercadona.es:3000/static/1k/file001.bin</a>
+</div>
+<script>
+$(function(){
+  var base = "http://labtl0001.lab.mercadona.es:3000/static/";
+
+
+  var add = function(name){
+   var value = $('[name="'+name+'"]').val();
+   if (value) return name+'='+value+'&';
+  }
+  var url = function(){
+    var str = base 
+	+ $('[name="size"]').val() + '/'
+	+ $('[name="fileName"]').val() + '?'
+	+ add('etag')
+   	+ add('cacheControl')
+   	+ add('maxAge');
+	return str;
+  };
+  $(document).on('change','input', function(evt){
+    var x=url();
+    $('#url').attr('href',x).text(x);
+    
+  });
+});
+</script>
+
